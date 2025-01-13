@@ -9,11 +9,32 @@ import {
 import presetTheme from 'unocss-preset-theme'
 import { themeConfig } from './src/config'
 
+const cssExtend = {
+  h1: {
+    'font-size': '3.6rem',
+  },
+  h2: {
+    'font-size': '3rem',
+  },
+  h3: {
+    'font-size': '2.4rem',
+  },
+  h4: {
+    'font-size': '2rem',
+  },
+  h5: {
+    'font-size': '1.8rem',
+  },
+  h6: {
+    'font-size': '1.6rem',
+  },
+}
+
 export default defineConfig({
   presets: [
     presetUno(),
     presetAttributify(),
-    presetTypography(),
+    presetTypography({ cssExtend }),
     presetTheme({
       theme: {
         dark: {
@@ -36,7 +57,7 @@ export default defineConfig({
     },
   },
   shortcuts: {
-    example: 'text-5 font-bold lh-7.5 m-0',
+    'blog-container': 'max-w-3xl mx-auto px-4',
   },
   rules: [
     // grid-[1_2]-[3_4]
@@ -57,17 +78,5 @@ export default defineConfig({
     [/^area-(\d+)-(\d+)-(\d+)-(\d+)$/, ([, Xstart, Ystart, Xend, Yend]) => ({
       'grid-area': `${Xstart} / ${Ystart} / ${Xend} / ${Yend}`,
     })],
-  ],
-  preflights: [
-    {
-      getCSS: () => `
-        h1 { font-size: 3.6rem; line-height: 1.75; }
-        h2 { font-size: 3rem; line-height: 1.75; }
-        h3 { font-size: 2.4rem; line-height: 1.75; }
-        h4 { font-size: 2rem; line-height: 1.75; }
-        h5 { font-size: 1.8rem; line-height: 1.75; }
-        h6 { font-size: 1.6rem; line-height: 1.75; }
-      `,
-    },
   ],
 })
