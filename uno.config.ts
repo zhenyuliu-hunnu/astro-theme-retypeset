@@ -1,3 +1,4 @@
+import type { Theme } from 'unocss/preset-uno'
 import type { ThemeConfig } from './src/types'
 import {
   defineConfig,
@@ -41,8 +42,12 @@ export default defineConfig({
     presetUno(),
     presetAttributify(),
     presetTypography({ cssExtend }),
-    presetTheme<object>({
-      theme: { dark },
+    presetTheme<Theme>({
+      theme: {
+        dark: {
+          colors: dark,
+        },
+      },
     }),
   ],
   transformers: [

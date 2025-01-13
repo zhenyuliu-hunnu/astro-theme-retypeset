@@ -7,7 +7,7 @@ export const themeConfig: ThemeConfig = {
     subtitle: '再现版式之美',
     description: '一个优美的博客主题',
     author: 'radishzz',
-    url: 'http://localhost:4321/',
+    url: 'https://retypeset.netlify.app',
     favicon: '#',
   },
   // SITE INFORMATION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> END

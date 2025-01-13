@@ -1,65 +1,38 @@
+import type { ThemeConfig } from './src/types'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import swup from '@swup/astro'
 import compress from 'astro-compress'
 import robotsTxt from 'astro-robots-txt'
 import { defineConfig } from 'astro/config'
+// Rehype
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeExternalLinks from 'rehype-external-links'
 import rehypeKatex from 'rehype-katex'
+import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
+// Remark
+import remarkDirective from 'remark-directive'
+import remarkDirectiveRehype from 'remark-directive-rehype'
+import remarkGithubAdmonitions from 'remark-github-admonitions-to-directives'
 import remarkMath from 'remark-math'
+import remarkSectionize from 'remark-sectionize'
+//
 import UnoCSS from 'unocss/astro'
 import { themeConfig } from './src/config'
 
+const { url }: { url: ThemeConfig['site']['url'] } = themeConfig.site
+
 export default defineConfig({
-  site: themeConfig.site.url,
+  site: url,
   base: '/',
-  trailingSlash: 'always', // whether the URL ends with a slash
-  markdown: {
-    remarkPlugins: [remarkMath],
-    rehypePlugins: [
-      rehypeKatex,
-      rehypeSlug,
-      [rehypeAutolinkHeadings, {
-        behavior: 'append',
-        properties: {
-          className: ['anchor'],
-        },
-        content: {
-          type: 'element',
-          tagName: 'span',
-          properties: {
-            'className': ['anchor-icon'],
-            'data-pagefind-ignore': true,
-          },
-          children: [
-            {
-              type: 'text',
-              value: '#',
-            },
-          ],
-        },
-      }],
-    ],
-    shikiConfig: {
-      theme: 'github-dark',
-      wrap: true,
-    },
-  },
+  trailingSlash: 'always',
   integrations: [
-    UnoCSS({
-      injectReset: true,
-    }),
+    UnoCSS({ injectReset: true }),
     mdx(),
     sitemap(),
     robotsTxt(),
-    compress({
-      CSS: true,
-      HTML: true,
-      Image: true,
-      JavaScript: true,
-      SVG: true,
-    }),
+    compress(),
     swup({
       theme: false,
       animationClass: 'transition-swup-',
@@ -71,7 +44,59 @@ export default defineConfig({
       updateBodyClass: true,
     }),
   ],
-  devToolbar: {
-    enabled: false,
+  markdown: {
+    remarkPlugins: [
+      remarkMath,
+      remarkReadingTime,
+      remarkExcerpt,
+      remarkGithubAdmonitions,
+      remarkDirective,
+      remarkDirectiveRehype,
+      remarkSectionize,
+      parseDirectiveNode,
+    ],
+    rehypePlugins: [
+      rehypeKatex,
+      rehypeSlug,
+      rehypePrettyCode,
+      [
+        rehypeComponents,
+        {
+          components: {
+            github: GithubCardComponent,
+            note: (x: any, y: any) => AdmonitionComponent(x, y, 'note'),
+            tip: (x: any, y: any) => AdmonitionComponent(x, y, 'tip'),
+            important: (x: any, y: any) => AdmonitionComponent(x, y, 'important'),
+            caution: (x: any, y: any) => AdmonitionComponent(x, y, 'caution'),
+            warning: (x: any, y: any) => AdmonitionComponent(x, y, 'warning'),
+          },
+        },
+      ],
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: 'append',
+          properties: {
+            className: ['anchor'],
+          },
+          content: {
+            type: 'element',
+            tagName: 'span',
+            properties: {
+              'className': ['anchor-icon'],
+              'data-pagefind-ignore': true,
+            },
+            children: [{ type: 'text', value: '#' }],
+          },
+        },
+      ],
+      [
+        rehypeExternalLinks,
+        {
+          target: '_blank',
+          rel: ['nofollow', 'noopener', 'noreferrer'],
+        },
+      ],
+    ],
   },
 })
