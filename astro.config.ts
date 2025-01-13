@@ -20,6 +20,11 @@ import remarkSectionize from 'remark-sectionize'
 //
 import UnoCSS from 'unocss/astro'
 import { themeConfig } from './src/config'
+import { AdmonitionComponent } from './src/plugins/rehype-component-admonition.ts'
+import { GithubCardComponent } from './src/plugins/rehype-component-github-card.ts'
+import { parseDirectiveNode } from './src/plugins/remark-directive-rehype.ts'
+import { remarkExcerpt } from './src/plugins/remark-excerpt.ts'
+import { remarkReadingTime } from './src/plugins/remark-reading-time.ts'
 
 const { url }: { url: ThemeConfig['site']['url'] } = themeConfig.site
 
