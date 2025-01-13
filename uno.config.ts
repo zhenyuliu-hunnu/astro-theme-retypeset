@@ -1,3 +1,4 @@
+import type { ThemeConfig } from './src/types'
 import {
   defineConfig,
   presetAttributify,
@@ -8,6 +9,11 @@ import {
 } from 'unocss'
 import presetTheme from 'unocss-preset-theme'
 import { themeConfig } from './src/config'
+
+const { light, dark }: {
+  light: ThemeConfig['color']['light']
+  dark: ThemeConfig['color']['dark']
+} = themeConfig.color
 
 const cssExtend = {
   h1: {
@@ -35,12 +41,8 @@ export default defineConfig({
     presetUno(),
     presetAttributify(),
     presetTypography({ cssExtend }),
-    presetTheme({
-      theme: {
-        dark: {
-          colors: { ...themeConfig.theme.dark },
-        },
-      },
+    presetTheme<object>({
+      theme: { dark },
     }),
   ],
   transformers: [
@@ -48,7 +50,7 @@ export default defineConfig({
     transformerVariantGroup(),
   ],
   theme: {
-    colors: { ...themeConfig.theme.light },
+    colors: light,
     fontFamily: {
       title: ['Title-EN', 'Title-RU', 'CN', 'ui-serif', 'Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
       serif: ['EN', 'RU', 'CN', 'Georgia', 'ui-serif', 'Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],

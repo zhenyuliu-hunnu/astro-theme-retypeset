@@ -1,65 +1,90 @@
 import type { ThemeConfig } from '@/types'
 
 export const themeConfig: ThemeConfig = {
-  // SITE INFORMATION ---------------------------------------------------------------------------------------- //
+  // SITE INFORMATION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   site: {
-    // Choose One to Fill In
-    title_EN: 'Retypeset', // support English, Spanish, Russian
-    title_CN: '重新编排', // supports simplified, traditional Chinese, and Japanese
-    // Choose One to Fill In
-    subtitle_EN: '', // support English, Spanish, Russian
-    subtitle_CN: '再现版式之美', // supports simplified, traditional Chinese, and Japanese
-    // Site URL
-    url: 'http://localhost:4321/',
-    // Author name
+    title: 'retypeset',
+    subtitle: '再现版式之美',
+    description: '一个优美的博客主题',
     author: 'radishzz',
-    // Site Favicon
-    favicon: 'https://image.radishzz.cc/image/favicon-round-48px.webp',
-    // Site Language
-    language: 'zh', // zh | tw | ja | en | es | ru
+    url: 'http://localhost:4321/',
+    favicon: '#',
   },
-  // THEME SETTING ------------------------------------------------------------------------------------------- //
-  theme: {
-    color: 'auto',
-    // Light Mode
+  // SITE INFORMATION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> END
+
+  // COLOR SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
+  color: {
+    mode: 'light',
     light: {
-      primary: '#333', // text color
-      background: '#FFF', // background color
-      grid: '#F3F3F3', // grid lines color
+      primary: '#000000',
+      backgroundStart: '#ffffff',
+      backgroundEnd: '#f5f5f5',
     },
-    // Dark Mode
     dark: {
-      primary: '#DBDBDB', // text color
-      background: '#121212', // background color
-      grid: '#1B1B1B', // grid lines color
+      primary: '#000000',
+      backgroundStart: '#ffffff',
+      backgroundEnd: '#000000',
     },
   },
-  toc: {
-    enable: true,
-    depth: '2',
+  // COLOR SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> END
+
+  // GLOBAL SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
+  global: {
+    language: 'zh',
+    font: 'sans',
+    rss: true,
+    toc: true,
   },
-  rss: {
-    enabled: true,
-    follow: {
-      feedId: '68090849347654656',
-      userId: '68014765825824768',
-    },
-  },
-  analytics: {
-    // google:
-    umami: 'https://analytics.example.com/script.js',
-  },
+  // GLOBAL SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> END
+
+  // COMMENT SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   comment: {
     waline: {
-      serverURL: 'https://comment.radishzz.cc',
+      serverURL: '#',
       emoji: [
-        '//unpkg.com/@waline/emojis@1.2.0/bmoji',
-        '//unpkg.com/@waline/emojis@1.2.0/weibo',
+        '#',
+        '#',
       ],
-      search: false,
-      imageUploader: false,
+      search: true,
+      imageUploader: true,
     },
   },
+  // COMMENT SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> END
+
+  // SEO SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
+  seo: {
+    twitter: 'https://twitter.com/radishzz',
+    meta: {
+      google: '#',
+      bing: '#',
+      baidu: '#',
+    },
+    link: '#',
+    googleAnalyticsID: '#',
+    umamiAnalyticsID: '#',
+    follow: {
+      feedID: '#',
+      userID: '#',
+    },
+  },
+  // SEO SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> END
+
+  // FOOTER SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
+  footer: {
+    linkA: {
+      name: 'RSS',
+      url: '#',
+    },
+    linkB: {
+      name: 'Contact',
+      url: '#',
+    },
+    linkC: {
+      name: 'GitHub',
+      url: '#',
+    },
+  },
+  // FOOTER SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> END
 }
 
 export default themeConfig
