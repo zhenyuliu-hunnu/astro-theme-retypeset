@@ -1,50 +1,91 @@
 import type { CollectionEntry } from 'astro:content'
 import { getCollection } from 'astro:content'
-import MarkdownIt from 'markdown-it'
-import sanitizeHtml, { type Tag } from 'sanitize-html'
 
 export type Post = CollectionEntry<'posts'>
+export type PostData = Post['data']
+export type PostsGroupByYear = Map<number, Post[]>
 
-export async function getPosts(isArchivePage = false) {
-  const posts = await getCollection('posts', ({ data }) => {
-    return import.meta.env.DEV || !data.draft
-  })
+// Get all posts and sort by publish date
+export async function getPosts() {
+  const posts = await getCollection(
+    'posts',
+    ({ data }: Post) => import.meta.env.DEV || !data.draft,
+  )
 
-  // 按发布日期降序排序
-  return posts.sort((a, b) => b.data.published.valueOf() - a.data.published.valueOf())
+  return posts.sort((a: Post, b: Post) =>
+    b.data.published.valueOf() - a.data.published.valueOf(),
+  )
 }
 
-// 获取所有标签及其对应的文章
-export async function getPostsByTags() {
+// Group posts by tags
+export async function sortPostsByTags() {
   const posts = await getPosts()
   const tagMap = new Map<string, Post[]>()
 
-  posts.forEach((post) => {
-    post.data.tags?.forEach((tag) => {
-      if (!tagMap.has(tag)) {
-        tagMap.set(tag, [])
-      }
-      tagMap.get(tag)?.push(post)
-    })
+  posts.forEach((post: Post) => {
+    if (post.data.tags && post.data.tags.length > 0) {
+      post.data.tags.forEach((tag: string) => {
+        if (!tagMap.has(tag)) {
+          tagMap.set(tag, [])
+        }
+        tagMap.get(tag)?.push(post)
+      })
+    }
   })
 
   return tagMap
 }
 
-// 获取指定标签的所有文章
+// Get posts by specific tag
 export async function getPostsByTag(tag: string) {
   const posts = await getPosts()
-  return posts.filter(post => post.data.tags?.includes(tag))
+
+  return posts.filter((post: Post) =>
+    post.data.tags?.includes(tag),
+  )
 }
 
-// 获取所有标签列表
+// Get all tags list
 export async function getAllTags() {
   const posts = await getPosts()
   const tags = new Set<string>()
 
-  posts.forEach((post) => {
-    post.data.tags?.forEach(tag => tags.add(tag))
+  posts.forEach((post: Post) => {
+    post.data.tags?.forEach((tag: string) =>
+      tags.add(tag),
+    )
   })
 
   return Array.from(tags)
+}
+
+// Group posts by year and sort
+export async function getPostsByYear(): Promise<PostsGroupByYear> {
+  const posts = await getPosts()
+  const yearMap = new Map<number, Post[]>()
+
+  // Group by year
+  posts.forEach((post: Post) => {
+    const year = post.data.published.getFullYear()
+    if (!yearMap.has(year)) {
+      yearMap.set(year, [])
+    }
+    yearMap.get(year)?.push(post)
+  })
+
+  // Sort posts within each year
+  yearMap.forEach((yearPosts) => {
+    yearPosts.sort((a: Post, b: Post) => {
+      const aDate = a.data.published
+      const bDate = b.data.published
+      const monthDiff = bDate.getMonth() - aDate.getMonth()
+
+      if (monthDiff !== 0) {
+        return monthDiff
+      }
+      return bDate.getDate() - aDate.getDate()
+    })
+  })
+
+  return new Map([...yearMap.entries()].sort((a, b) => b[0] - a[0]))
 }

@@ -73,7 +73,7 @@ export const themeConfig: ThemeConfig = {
   footer: {
     linkA: {
       name: 'RSS',
-      url: '#',
+      url: '/rss.xml',
     },
     linkB: {
       name: 'Contact',
