@@ -7,14 +7,14 @@ import robotsTxt from 'astro-robots-txt'
 import { defineConfig } from 'astro/config'
 // Rehype
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeComponents from 'rehype-components'
 import rehypeExternalLinks from 'rehype-external-links'
 import rehypeKatex from 'rehype-katex'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
 // Remark
 import remarkDirective from 'remark-directive'
-import remarkDirectiveRehype from 'remark-directive-rehype'
-import remarkGithubAdmonitions from 'remark-github-admonitions-to-directives'
+import remarkGithubAdmonitionsToDirectives from 'remark-github-admonitions-to-directives'
 import remarkMath from 'remark-math'
 import remarkSectionize from 'remark-sectionize'
 //
@@ -24,6 +24,7 @@ import { AdmonitionComponent } from './src/plugins/rehype-component-admonition.t
 import { GithubCardComponent } from './src/plugins/rehype-component-github-card.ts'
 import { parseDirectiveNode } from './src/plugins/remark-directive-rehype.ts'
 import { remarkExcerpt } from './src/plugins/remark-excerpt.ts'
+
 import { remarkReadingTime } from './src/plugins/remark-reading-time.ts'
 
 const { url }: { url: ThemeConfig['site']['url'] } = themeConfig.site
@@ -54,26 +55,37 @@ export default defineConfig({
       remarkMath,
       remarkReadingTime,
       remarkExcerpt,
-      remarkGithubAdmonitions,
+      remarkGithubAdmonitionsToDirectives,
       remarkDirective,
-      remarkDirectiveRehype,
       remarkSectionize,
       parseDirectiveNode,
     ],
     rehypePlugins: [
       rehypeKatex,
       rehypeSlug,
-      rehypePrettyCode,
+      [
+        rehypePrettyCode,
+        {
+          theme: 'github-dark',
+        },
+      ],
+      [
+        rehypeExternalLinks,
+        {
+          target: '_blank',
+          rel: ['nofollow', 'noopener', 'noreferrer'],
+        },
+      ],
       [
         rehypeComponents,
         {
           components: {
             github: GithubCardComponent,
-            note: (x: any, y: any) => AdmonitionComponent(x, y, 'note'),
-            tip: (x: any, y: any) => AdmonitionComponent(x, y, 'tip'),
-            important: (x: any, y: any) => AdmonitionComponent(x, y, 'important'),
-            caution: (x: any, y: any) => AdmonitionComponent(x, y, 'caution'),
-            warning: (x: any, y: any) => AdmonitionComponent(x, y, 'warning'),
+            note: (props, children) => AdmonitionComponent(props, 'note', children),
+            tip: (props, children) => AdmonitionComponent(props, 'tip', children),
+            important: (props, children) => AdmonitionComponent(props, 'important', children),
+            caution: (props, children) => AdmonitionComponent(props, 'caution', children),
+            warning: (props, children) => AdmonitionComponent(props, 'warning', children),
           },
         },
       ],
@@ -91,17 +103,16 @@ export default defineConfig({
               'className': ['anchor-icon'],
               'data-pagefind-ignore': true,
             },
-            children: [{ type: 'text', value: '#' }],
+            children: [
+              {
+                type: 'text',
+                value: '#',
+              },
+            ],
           },
-        },
-      ],
-      [
-        rehypeExternalLinks,
-        {
-          target: '_blank',
-          rel: ['nofollow', 'noopener', 'noreferrer'],
         },
       ],
     ],
   },
+
 })
