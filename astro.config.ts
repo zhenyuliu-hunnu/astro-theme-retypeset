@@ -119,6 +119,7 @@ export default defineConfig({
               'className': ['anchor-icon'],
               'data-pagefind-ignore': true,
             },
+            // TODO: Switch # to icon
             children: [
               {
                 type: 'text',
