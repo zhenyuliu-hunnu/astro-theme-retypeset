@@ -28,14 +28,11 @@ export function parseDirectiveNode() {
       ) {
         const data = directiveNode.data || (directiveNode.data = {})
         directiveNode.attributes = directiveNode.attributes || {}
-        if (
-          directiveNode.children.length > 0
-          && directiveNode.children[0].data?.directiveLabel
-        ) {
-          directiveNode.attributes['has-directive-label'] = true
-        }
-        const hast = h(directiveNode.name, directiveNode.attributes)
 
+        if (directiveNode.children[0]?.data?.directiveLabel)
+          directiveNode.attributes['has-directive-label'] = true
+
+        const hast = h(directiveNode.name, directiveNode.attributes)
         data.hName = hast.tagName
         data.hProperties = hast.properties
       }

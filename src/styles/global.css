@@ -1,0 +1,5 @@
+:root {
+    --uno-colors-primary: theme('colors.primary');
+    --uno-colors-backgroundStart: theme('colors.backgroundStart');
+    --uno-colors-backgroundEnd: theme('colors.backgroundEnd');
+  }

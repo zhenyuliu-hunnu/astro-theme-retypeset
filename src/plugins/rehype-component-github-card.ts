@@ -1,17 +1,10 @@
 /// <reference types="mdast" />
+import type { RootContent } from 'mdast'
 import { h } from 'hastscript'
 
-/**
- * Creates a GitHub Card component.
- *
- * @param {object} properties - The properties of the component.
- * @param {string} properties.repo - The GitHub repository in the format "owner/repo".
- * @param {import('mdast').RootContent[]} children - The children elements of the component.
- * @returns {import('mdast').Parent} The created GitHub Card component.
- */
 export function GithubCardComponent(
   properties: { repo: string },
-  children: import('mdast').RootContent[],
+  children: RootContent[],
 ): import('mdast').Parent {
   if (Array.isArray(children) && children.length !== 0) {
     return h('div', { class: 'hidden' }, [
@@ -28,7 +21,7 @@ export function GithubCardComponent(
   }
 
   const repo = properties.repo
-  const cardUuid = `GC${Math.random().toString(36).slice(-6)}` // Collisions are not important
+  const cardUuid = `GC${Math.random().toString(36).slice(-6)}`
 
   const nAvatar = h(`div#${cardUuid}-avatar`, { class: 'gc-avatar' })
   const nLanguage = h(
@@ -63,29 +56,39 @@ export function GithubCardComponent(
     `script#${cardUuid}-script`,
     { type: 'text/javascript', defer: true },
     `
-      fetch('https://api.github.com/repos/${repo}', { referrerPolicy: "no-referrer" }).then(response => response.json()).then(data => {
-        if (data.description) {
-          document.getElementById('${cardUuid}-description').innerText = data.description.replace(/:[a-zA-Z0-9_]+:/g, '');
-        } else {
-          document.getElementById('${cardUuid}-description').innerText = "Description not set"
+      fetch('https://api.github.com/repos/${repo}', {
+        referrerPolicy: "no-referrer",
+        headers: {
+          'Accept': 'application/vnd.github.v3+json',
+        },
+        signal: AbortSignal.timeout(5000)
+      }).then(response => {
+        if (!response.ok)
+          throw new Error(\`HTTP error! status: \${response.status}\`)
+        return response.json()
+      }).then(data => {
+        const elements = {
+          description: document.getElementById('${cardUuid}-description'),
+          language: document.getElementById('${cardUuid}-language'),
+          stars: document.getElementById('${cardUuid}-stars'),
         }
-        document.getElementById('${cardUuid}-language').innerText = data.language;
-        document.getElementById('${cardUuid}-forks').innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.forks).replaceAll("\\u202F", '');
-        document.getElementById('${cardUuid}-stars').innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.stargazers_count).replaceAll("\\u202F", '');
-        const avatarEl = document.getElementById('${cardUuid}-avatar');
-        avatarEl.style.backgroundImage = 'url(' + data.owner.avatar_url + ')';
-        avatarEl.style.backgroundColor = 'transparent';
-        if (data.license?.spdx_id) {
-          document.getElementById('${cardUuid}-license').innerText = data.license?.spdx_id
-        } else {
-          document.getElementById('${cardUuid}-license').innerText = "no-license"
-        };
-          document.getElementById('${cardUuid}-card').classList.remove("fetch-waiting");
-          console.log("[GITHUB-CARD] Loaded card for ${repo} | ${cardUuid}.")
+
+        elements.description.innerText = data.description?.replace(/:[a-zA-Z0-9_]+:/g, '') ?? 'Description not set'
+        elements.language.innerText = data.language
+        elements.stars.innerText = Intl.NumberFormat('en-us', { notation: "compact", maximumFractionDigits: 1 }).format(data.stargazers_count).replaceAll("\\u202F", '')
+
+        const avatarEl = document.getElementById('${cardUuid}-avatar')
+        avatarEl.style.backgroundImage = 'url(' + data.owner.avatar_url + ')'
+        avatarEl.style.backgroundColor = 'transparent'
+
+        document.getElementById('${cardUuid}-license').innerText = data.license?.spdx_id ?? 'no-license'
+        document.getElementById('${cardUuid}-card').classList.remove("fetch-waiting")
+        console.log("[GITHUB-CARD] Loaded card for ${repo} | ${cardUuid}.")
       }).catch(err => {
-        const c = document.getElementById('${cardUuid}-card');
-        c.classList.add("fetch-error");
-         console.warn("[GITHUB-CARD] (Error) Loading card for ${repo} | ${cardUuid}.")
+        const c = document.getElementById('${cardUuid}-card')
+        c.classList.add("fetch-error")
+        document.getElementById('${cardUuid}-description').innerText = "Failed to load repository data"
+        console.warn("[GITHUB-CARD] (Error) Loading card for ${repo} | ${cardUuid}:", err.message)
       })
     `,
   )
@@ -98,11 +101,6 @@ export function GithubCardComponent(
       target: '_blank',
       repo,
     },
-    [
-      nTitle,
-      nDescription,
-      h('div', { class: 'gc-infobar' }, [nStars, nForks, nLicense, nLanguage]),
-      nScript,
-    ],
+    [nTitle, nDescription, h('div', { class: 'gc-infobar' }, [nStars, nForks, nLicense, nLanguage]), nScript],
   ) as unknown as import('mdast').Parent
 }

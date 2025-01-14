@@ -1,5 +1,4 @@
 import type { Element, Properties as HastProperties, Node } from 'hast'
-/// <reference types="mdast" />
 import { h } from 'hastscript'
 
 interface AdmonitionProperties extends HastProperties {
@@ -7,25 +6,19 @@ interface AdmonitionProperties extends HastProperties {
   'has-directive-label'?: boolean
 }
 
-/**
- * Creates an admonition component.
- *
- * @param properties - The properties of the component.
- * @param type - The admonition type.
- * @param children - The children elements of the component.
- * @returns The created admonition component as a Hast Element.
- */
+type AdmonitionType = 'tip' | 'note' | 'important' | 'caution' | 'warning'
+
+const ADMONITION_CLASS_PREFIX = 'bdm-'
+const DEFAULT_ERROR_MESSAGE = 'Invalid admonition directive. (Admonition directives must be of block type ":::note{name="name"} <content> :::")'
+
 export function AdmonitionComponent(
   properties: AdmonitionProperties,
-  type: 'tip' | 'note' | 'important' | 'caution' | 'warning',
+  type: AdmonitionType,
   children: Node[],
 ): Element {
   if (!Array.isArray(children) || children.length === 0) {
-    return h(
-      'div',
-      { class: 'hidden' },
-      'Invalid admonition directive. (Admonition directives must be of block type ":::note{name="name"} <content> :::")',
-    )
+    console.warn('Invalid admonition directive: empty or invalid children')
+    return h('div', { class: 'hidden' }, DEFAULT_ERROR_MESSAGE)
   }
 
   let label: Element | string | null = null
@@ -36,14 +29,14 @@ export function AdmonitionComponent(
 
     if (firstChild && firstChild.type === 'element') {
       label = firstChild as Element
-      label.tagName = 'div' // Change the tag <p> to <div>
+      label.tagName = 'div'
     }
     else {
       label = ''
     }
   }
 
-  return h('blockquote', { class: `admonition bdm-${type}` }, [
+  return h('blockquote', { class: `${ADMONITION_CLASS_PREFIX}${type}` }, [
     h('span', { class: 'bdm-title' }, label || type.toUpperCase()),
     ...(children as Element[]),
   ] as Element[])

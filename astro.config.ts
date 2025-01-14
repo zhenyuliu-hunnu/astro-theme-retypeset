@@ -1,6 +1,8 @@
+// Plugins
 import type { ThemeConfig } from './src/types'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
+import { transformerCopyButton } from '@rehype-pretty/transformers'
 import swup from '@swup/astro'
 import compress from 'astro-compress'
 import robotsTxt from 'astro-robots-txt'
@@ -17,14 +19,13 @@ import remarkDirective from 'remark-directive'
 import remarkGithubAdmonitionsToDirectives from 'remark-github-admonitions-to-directives'
 import remarkMath from 'remark-math'
 import remarkSectionize from 'remark-sectionize'
-//
+// Markdown Extensions
 import UnoCSS from 'unocss/astro'
 import { themeConfig } from './src/config'
 import { AdmonitionComponent } from './src/plugins/rehype-component-admonition.ts'
 import { GithubCardComponent } from './src/plugins/rehype-component-github-card.ts'
 import { parseDirectiveNode } from './src/plugins/remark-directive-rehype.ts'
 import { remarkExcerpt } from './src/plugins/remark-excerpt.ts'
-
 import { remarkReadingTime } from './src/plugins/remark-reading-time.ts'
 
 const { url }: { url: ThemeConfig['site']['url'] } = themeConfig.site
@@ -36,8 +37,15 @@ export default defineConfig({
   integrations: [
     UnoCSS({ injectReset: true }),
     mdx(),
-    sitemap(),
-    robotsTxt(),
+    sitemap({
+      changefreq: 'weekly',
+      priority: 0.7,
+      lastmod: new Date(),
+    }),
+    robotsTxt({
+      policy: [{ userAgent: '*', allow: '/' }],
+      sitemap: true,
+    }),
     compress(),
     swup({
       theme: false,
@@ -66,14 +74,22 @@ export default defineConfig({
       [
         rehypePrettyCode,
         {
+          // TODO: Add auto theme switcher
           theme: 'github-dark',
+          transformers: [
+            transformerCopyButton({
+              visibility: 'hover',
+              feedbackDuration: 2_500,
+            }),
+          ],
         },
       ],
       [
         rehypeExternalLinks,
         {
           target: '_blank',
-          rel: ['nofollow', 'noopener', 'noreferrer'],
+          rel: ['nofollow', 'noopener', 'noreferrer', 'external'],
+          protocols: ['http', 'https', 'mailto'],
         },
       ],
       [
@@ -114,5 +130,4 @@ export default defineConfig({
       ],
     ],
   },
-
 })
