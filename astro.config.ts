@@ -1,6 +1,7 @@
 // Plugins
 import type { ThemeConfig } from './src/types'
 import mdx from '@astrojs/mdx'
+import partytown from '@astrojs/partytown'
 import sitemap from '@astrojs/sitemap'
 import { transformerCopyButton } from '@rehype-pretty/transformers'
 import swup from '@swup/astro'
@@ -35,6 +36,11 @@ export default defineConfig({
   base: '/',
   trailingSlash: 'always',
   integrations: [
+    partytown({
+      config: {
+        forward: ['dataLayer.push'],
+      },
+    }),
     UnoCSS({ injectReset: true }),
     mdx(),
     sitemap({

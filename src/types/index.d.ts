@@ -40,19 +40,22 @@ export interface ThemeConfig {
   }
 
   seo?: {
-    twitter?: string
-    meta?: {
+    twitterID?: string
+    facebookID?: string
+    facebookLink?: string
+    verification?: {
       google?: string
       bing?: string
+      yandex?: string
       baidu?: string
     }
-    link?: string
     googleAnalyticsID?: string
     umamiAnalyticsID?: string
     follow?: {
       feedID?: string
       userID?: string
     }
+    siteScreenshot: string
   }
 
   footer: {
@@ -68,6 +71,15 @@ export interface ThemeConfig {
       name: string
       url: string
     }
+  }
+
+  preload: {
+    cdn: string
+    commentURL?: string
+    imageHostURL?: string
+    customGoogleAnalyticsURL?: string
+    customUmamiAnalyticsURL?: string
+    customUmamiAnalyticsJS?: string
   }
 }
 

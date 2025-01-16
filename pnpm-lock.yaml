@@ -14,6 +14,9 @@ importers:
       '@astrojs/mdx':
         specifier: ^4.0.5
         version: 4.0.5(astro@5.1.6(@types/node@22.10.6)(jiti@2.4.2)(lightningcss@1.28.2)(rollup@2.79.2)(terser@5.37.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0))
+      '@astrojs/partytown':
+        specifier: ^2.1.3
+        version: 2.1.3
       '@astrojs/rss':
         specifier: ^4.0.11
         version: 4.0.11
@@ -38,9 +41,6 @@ importers:
       astro-robots-txt:
         specifier: ^1.0.0
         version: 1.0.0
-      astro-seo:
-        specifier: ^0.8.4
-        version: 0.8.4(typescript@5.7.3)
       markdown-it:
         specifier: ^14.1.0
         version: 14.1.0
@@ -212,12 +212,6 @@ packages:
   '@antfu/utils@0.7.10':
     resolution: {integrity: sha512-+562v9k4aI80m1+VuMHehNJWLOFjBnXn3tdOitzD0il5b7smkSBal4+a3oKiQTbrwMmN/TBUMDvbdoWDehgOww==}
 
-  '@astrojs/check@0.5.10':
-    resolution: {integrity: sha512-vliHXM9cu/viGeKiksUM4mXfO816ohWtawTl2ADPgTsd4nUMjFiyAl7xFZhF34yy4hq4qf7jvK1F2PlR3b5I5w==}
-    hasBin: true
-    peerDependencies:
-      typescript: ^5.0.0
-
   '@astrojs/check@0.9.4':
     resolution: {integrity: sha512-IOheHwCtpUfvogHHsvu0AbeRZEnjJg3MopdLddkJE70mULItS/Vh37BHcI00mcOJcH1vhD3odbpvWokpxam7xA==}
     hasBin: true
@@ -250,6 +244,9 @@ packages:
     engines: {node: ^18.17.1 || ^20.3.0 || >=22.0.0}
     peerDependencies:
       astro: ^5.0.0
+
+  '@astrojs/partytown@2.1.3':
+    resolution: {integrity: sha512-pkGsV6/GUTph4oLgvrpbrGnu4+9JuG8fOCzBCI2dQKtpBYQ6XAZKHrPA3evQoB5vDbfUZGVCoWe95MnSoPbVtQ==}
 
   '@astrojs/prism@3.2.0':
     resolution: {integrity: sha512-GilTHKGCW6HMq7y3BUv9Ac7GMe/MO9gi9GW62GzKtth0SwukCu/qp2wLiGpEujhY+VVhaG9v7kv/5vFzvf4NYw==}
@@ -1521,6 +1518,11 @@ packages:
   '@polka/url@1.0.0-next.28':
     resolution: {integrity: sha512-8LduaNlMZGwdZ6qWrKlfa+2M4gahzFkprZiAt2TF8uS0qQgBizKXpXURqvTJ4WtmupWxaLqjRb2UCTe72mu+Aw==}
 
+  '@qwik.dev/partytown@0.11.0':
+    resolution: {integrity: sha512-MHime7cxj7KGrapGZ1VqLkXXq5BLNqvjNZndRJVvMkUWn92F2bsezlWW1lKDoFaKCKu2xv9LRUZL99RYOs+ccA==}
+    engines: {node: '>=18.0.0'}
+    hasBin: true
+
   '@rehype-pretty/transformers@0.13.2':
     resolution: {integrity: sha512-p2ciQSwqy5Ip8aNUa9q6rdS/hJZXrxHYYfDVOHvKOsBu3t9HDmQ65YX6r9Qbl19vi160OAxmGF7MIoCRDJrRhg==}
     engines: {node: '>=18'}
@@ -2197,9 +2199,6 @@ packages:
   astro-robots-txt@1.0.0:
     resolution: {integrity: sha512-6JQSLid4gMhoWjOm85UHLkgrw0+hHIjnJVIUqxjU2D6feKlVyYukMNYjH44ZDZBK1P8hNxd33PgWlHzCASvedA==}
 
-  astro-seo@0.8.4:
-    resolution: {integrity: sha512-Ou1vzQSXAxa0K8rtNtXNvSpYqOGEgMhh0immMxJeXmbVZac3UKCNWAoXWyOQDFYsZvBugCRSg0N1phBqPMVgCw==}
-
   astro@5.1.6:
     resolution: {integrity: sha512-LpTazCIW6syxFePi65gg2ptqqC2kR+PDRym3V23hEQj5yCf+T0t5v9qtp3fW0/+6G+JvP0EprCfCRTt7h/hexg==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=22.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
@@ -2704,6 +2703,10 @@ packages:
 
   dot-case@3.0.4:
     resolution: {integrity: sha512-Kv5nKlh6yRrdrGvxeJ2e5y2eRUpkUosIW4A2AS38zwSz27zu7ufDwQPi5Jhs3XAlGNetl3bmnGhQsMtkKJnj3w==}
+
+  dotenv@16.4.7:
+    resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
+    engines: {node: '>=12'}
 
   dset@3.1.4:
     resolution: {integrity: sha512-2QF/g9/zTaPDc3BjNcVTGoBbXBgYfMTTceLaYcFJ/W9kggFUkhxD/hMEeuLKbugyef9SqAx8cpgwlIP/jinUTA==}
@@ -5952,18 +5955,6 @@ snapshots:
 
   '@antfu/utils@0.7.10': {}
 
-  '@astrojs/check@0.5.10(typescript@5.7.3)':
-    dependencies:
-      '@astrojs/language-server': 2.15.4(typescript@5.7.3)
-      chokidar: 3.6.0
-      fast-glob: 3.3.3
-      kleur: 4.1.5
-      typescript: 5.7.3
-      yargs: 17.7.2
-    transitivePeerDependencies:
-      - prettier
-      - prettier-plugin-astro
-
   '@astrojs/check@0.9.4(typescript@5.7.3)':
     dependencies:
       '@astrojs/language-server': 2.15.4(typescript@5.7.3)
@@ -6044,6 +6035,11 @@ snapshots:
       vfile: 6.0.3
     transitivePeerDependencies:
       - supports-color
+
+  '@astrojs/partytown@2.1.3':
+    dependencies:
+      '@qwik.dev/partytown': 0.11.0
+      mrmime: 2.0.0
 
   '@astrojs/prism@3.2.0':
     dependencies:
@@ -7302,6 +7298,10 @@ snapshots:
 
   '@polka/url@1.0.0-next.28': {}
 
+  '@qwik.dev/partytown@0.11.0':
+    dependencies:
+      dotenv: 16.4.7
+
   '@rehype-pretty/transformers@0.13.2': {}
 
   '@rollup/plugin-alias@3.1.9(rollup@2.79.2)':
@@ -8218,14 +8218,6 @@ snapshots:
       valid-filename: 4.0.0
       zod: 3.24.1
 
-  astro-seo@0.8.4(typescript@5.7.3):
-    dependencies:
-      '@astrojs/check': 0.5.10(typescript@5.7.3)
-    transitivePeerDependencies:
-      - prettier
-      - prettier-plugin-astro
-      - typescript
-
   astro@5.1.6(@types/node@22.10.6)(jiti@2.4.2)(lightningcss@1.28.2)(rollup@2.79.2)(terser@5.37.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0):
     dependencies:
       '@astrojs/compiler': 2.10.3
@@ -8850,6 +8842,8 @@ snapshots:
     dependencies:
       no-case: 3.0.4
       tslib: 2.8.1
+
+  dotenv@16.4.7: {}
 
   dset@3.1.4: {}
 
