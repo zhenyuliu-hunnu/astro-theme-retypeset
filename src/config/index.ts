@@ -8,7 +8,7 @@ export const themeConfig: ThemeConfig = {
     description: '一个优美的博客主题',
     author: 'radishzz',
     url: 'https://retypeset.netlify.app',
-    favicon: '#', // only support webp, svg, png
+    favicon: '', // support only webp, svg, png
   },
   // SITE INFORMATION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> END
 
@@ -40,10 +40,10 @@ export const themeConfig: ThemeConfig = {
   // COMMENT SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   comment: {
     waline: {
-      serverURL: '#',
+      serverURL: '',
       emoji: [
-        '#',
-        '#',
+        '',
+        '',
       ],
       search: true,
       imageUploader: true,
@@ -53,25 +53,25 @@ export const themeConfig: ThemeConfig = {
 
   // SEO SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   seo: {
-    twitterID: '#', // @twitter ID
-    facebookID: '#', // @facebook ID
-    facebookLink: '#', // facebook profile link
+    twitterID: '', // @twitter ID
+    facebookID: '', // @facebook ID
+    facebookLink: '', // facebook profile link
     // site verification
     verification: {
-      google: '#',
-      bing: '#',
-      yandex: '#',
-      baidu: '#',
+      google: '',
+      bing: '',
+      yandex: '',
+      baidu: '',
     },
     // site analytics
-    googleAnalyticsID: '#',
-    umamiAnalyticsID: '#',
+    googleAnalyticsID: '',
+    umamiAnalyticsID: '',
     // follow verification
     follow: {
-      feedID: '#',
-      userID: '#',
+      feedID: '',
+      userID: '',
     },
-    siteScreenshot: '#', // Take a screenshot of website homepage to show on twitter card
+    siteScreenshot: '', // Take a screenshot of website homepage to show on twitter card
   },
   // SEO SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> END
 
@@ -94,13 +94,14 @@ export const themeConfig: ThemeConfig = {
 
   // PRELOAD SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   preload: {
-    cdn: 'https://cdn.jsdelivr.net/', // Recommended to keep default, unless you can proxy https://cdn.jsdelivr.net/gh/radishzzz/astro-theme-retypeset@master/src/style/font.css
+    cdn: 'https://cdn.jsdelivr.net', // Recommended to keep default, unless you can proxy https://cdn.jsdelivr.net/gh/radishzzz/astro-theme-retypeset@master/src/style/font.css
     commentURL: '', // https://comment.example.com/
     imageHostURL: '', // https://image.example.com/
     // If you proxy analytics requests to the custom domain, you can fill in below
     customGoogleAnalyticsURL: '', // https://whatever.example.com/
     customUmamiAnalyticsURL: '', // https://whatever.example.com/
     customUmamiAnalyticsJS: '', // https://whatever.example.com/whatever.js
+    lazyload: false,
   },
   // PRELOAD SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> END
 }

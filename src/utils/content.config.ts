@@ -9,12 +9,61 @@ export type PostsGroupByYear = Map<number, Post[]>
 export async function getPosts() {
   const posts = await getCollection(
     'posts',
-    ({ data }: Post) => import.meta.env.DEV || !data.draft,
+    ({ data }: Post) => {
+      const shouldInclude = (import.meta.env.DEV || !data.draft) && !data.pin
+      return shouldInclude
+    },
   )
 
   return posts.sort((a: Post, b: Post) =>
     b.data.published.valueOf() - a.data.published.valueOf(),
   )
+}
+
+// Get pinned posts
+export async function getPinnedPosts() {
+  const posts = await getCollection(
+    'posts',
+    ({ data }: Post) => {
+      const shouldInclude = (import.meta.env.DEV || !data.draft) && data.pin
+      return shouldInclude
+    },
+  )
+
+  return posts.sort((a: Post, b: Post) =>
+    b.data.published.valueOf() - a.data.published.valueOf(),
+  )
+}
+
+// Group posts by year and sort
+export async function getPostsByYear(): Promise<PostsGroupByYear> {
+  const posts = await getPosts()
+  const yearMap = new Map<number, Post[]>()
+
+  // Group by year
+  posts.forEach((post: Post) => {
+    const year = post.data.published.getFullYear()
+    if (!yearMap.has(year)) {
+      yearMap.set(year, [])
+    }
+    yearMap.get(year)?.push(post)
+  })
+
+  // Sort posts within each year
+  yearMap.forEach((yearPosts) => {
+    yearPosts.sort((a: Post, b: Post) => {
+      const aDate = a.data.published
+      const bDate = b.data.published
+      const monthDiff = bDate.getMonth() - aDate.getMonth()
+
+      if (monthDiff !== 0) {
+        return monthDiff
+      }
+      return bDate.getDate() - aDate.getDate()
+    })
+  })
+
+  return new Map([...yearMap.entries()].sort((a, b) => b[0] - a[0]))
 }
 
 // Group posts by tags
@@ -47,7 +96,10 @@ export async function getPostsByTag(tag: string) {
 
 // Get all tags list
 export async function getAllTags() {
-  const posts = await getPosts()
+  const posts = await getCollection(
+    'posts',
+    ({ data }: Post) => import.meta.env.DEV || !data.draft,
+  )
   const tags = new Set<string>()
 
   posts.forEach((post: Post) => {
@@ -57,35 +109,4 @@ export async function getAllTags() {
   })
 
   return Array.from(tags)
-}
-
-// Group posts by year and sort
-export async function getPostsByYear(): Promise<PostsGroupByYear> {
-  const posts = await getPosts()
-  const yearMap = new Map<number, Post[]>()
-
-  // Group by year
-  posts.forEach((post: Post) => {
-    const year = post.data.published.getFullYear()
-    if (!yearMap.has(year)) {
-      yearMap.set(year, [])
-    }
-    yearMap.get(year)?.push(post)
-  })
-
-  // Sort posts within each year
-  yearMap.forEach((yearPosts) => {
-    yearPosts.sort((a: Post, b: Post) => {
-      const aDate = a.data.published
-      const bDate = b.data.published
-      const monthDiff = bDate.getMonth() - aDate.getMonth()
-
-      if (monthDiff !== 0) {
-        return monthDiff
-      }
-      return bDate.getDate() - aDate.getDate()
-    })
-  })
-
-  return new Map([...yearMap.entries()].sort((a, b) => b[0] - a[0]))
 }

@@ -80,6 +80,7 @@ export interface ThemeConfig {
     customGoogleAnalyticsURL?: string
     customUmamiAnalyticsURL?: string
     customUmamiAnalyticsJS?: string
+    lazyload: boolean
   }
 }
 

@@ -9,8 +9,8 @@ interface Props {
 
 const { postTitle, postDescription, postImage } = Astro.props
 const { title, subtitle, description, author, url, favicon } = themeConfig.site
-const { language } = themeConfig.global
 const { light: { backgroundStart: lightMode }, dark: { backgroundStart: darkMode } } = themeConfig.color
+const { language } = themeConfig.global
 const { verification = {}, twitterID = '', facebookID = '', facebookLink = '', googleAnalyticsID = '', umamiAnalyticsID = '', siteScreenshot = '' } = themeConfig.seo ?? {}
 const { google = '', bing = '', yandex = '', baidu = '' } = verification
 const { cdn, commentURL = '', imageHostURL = '', customGoogleAnalyticsURL = '', customUmamiAnalyticsURL = '', customUmamiAnalyticsJS = '' } = themeConfig.preload
@@ -35,11 +35,12 @@ const { cdn, commentURL = '', imageHostURL = '', customGoogleAnalyticsURL = '', 
 
 <!-- Preload -->
 <link rel="preconnect" href={cdn} />
-<link rel="preload" href={`${cdn}gh/radishzzz/astro-theme-retypeset@master/src/style/font.css`} as="style" />
+<link rel="preload" href={`${cdn}/gh/radishzzz/astro-theme-retypeset@master/src/style/font.css`} as="style" />
 {commentURL && <link rel="dns-prefetch" href={commentURL} />}
 {imageHostURL && <link rel="dns-prefetch" href={imageHostURL} />}
 {customGoogleAnalyticsURL && <link rel="dns-prefetch" href={customGoogleAnalyticsURL} />}
 {customUmamiAnalyticsURL && <link rel="dns-prefetch" href={customUmamiAnalyticsURL} />}
+<link rel="stylesheet" href={`${cdn}/gh/radishzzz/astro-theme-retypeset@master/src/style/font.css`} />
 
 <!-- Link -->
 <link rel="author" href={url} />
@@ -89,15 +90,11 @@ const { cdn, commentURL = '', imageHostURL = '', customGoogleAnalyticsURL = '', 
     <>
       <script
         type="text/partytown"
-        async
-        defer
         crossorigin="anonymous"
         src={`${customGoogleAnalyticsURL || 'https://www.googletagmanager.com'}/gtag/js?id=${googleAnalyticsID}`}
       />
       <script
         type="text/partytown"
-        async
-        defer
         define:vars={{ googleAnalyticsID, customGoogleAnalyticsURL }}
       >
         window.dataLayer = window.dataLayer || []
@@ -107,7 +104,7 @@ const { cdn, commentURL = '', imageHostURL = '', customGoogleAnalyticsURL = '', 
         gtag('js', new Date())
         if (customGoogleAnalyticsURL) {
           gtag('config', googleAnalyticsID, {
-            transport_url: customGoogleAnalyticsURL.replace(/\/$/, ''),
+            transport_url: customGoogleAnalyticsURL,
           })
         }
         else {
@@ -123,8 +120,6 @@ const { cdn, commentURL = '', imageHostURL = '', customGoogleAnalyticsURL = '', 
   umamiAnalyticsID && (
     <script
       type="text/partytown"
-      async
-      defer
       crossorigin="anonymous"
       data-website-id={umamiAnalyticsID}
       src={customUmamiAnalyticsJS || 'https://analytics.umami.is/script.js'}

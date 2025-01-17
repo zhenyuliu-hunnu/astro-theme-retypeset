@@ -23,11 +23,11 @@ import remarkSectionize from 'remark-sectionize'
 // Markdown Extensions
 import UnoCSS from 'unocss/astro'
 import { themeConfig } from './src/config'
-import { AdmonitionComponent } from './src/plugins/rehype-component-admonition.ts'
-import { GithubCardComponent } from './src/plugins/rehype-component-github-card.ts'
-import { parseDirectiveNode } from './src/plugins/remark-directive-rehype.ts'
-import { remarkExcerpt } from './src/plugins/remark-excerpt.ts'
-import { remarkReadingTime } from './src/plugins/remark-reading-time.ts'
+import { AdmonitionComponent } from './src/plugins/rehype-component-admonition.mjs'
+import { GithubCardComponent } from './src/plugins/rehype-component-github-card.mjs'
+import { parseDirectiveNode } from './src/plugins/remark-directive-rehype.js'
+import { remarkExcerpt } from './src/plugins/remark-excerpt.js'
+import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs'
 
 const { url }: { url: ThemeConfig['site']['url'] } = themeConfig.site
 
@@ -69,9 +69,9 @@ export default defineConfig({
       remarkMath,
       remarkReadingTime,
       remarkExcerpt,
+      remarkSectionize,
       remarkGithubAdmonitionsToDirectives,
       remarkDirective,
-      remarkSectionize,
       parseDirectiveNode,
     ],
     rehypePlugins: [
