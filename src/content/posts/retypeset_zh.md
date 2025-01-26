@@ -1,0 +1,9 @@
+---
+title: Retypeset 主题介绍
+published: 2024-01-25
+tags: ["Astro", "博客主题"]
+lang: zh
+slug: theme-introduction
+---
+
+Retypeset 是一款基于 Astro 的博客主题，中文名为『重新编排』，最初灵感来源于 Typography。本主题在保留原『活字印刷』风格的基础上，以版式设计为核心，对所有页面都进行了重新编排，营造出简约现代的视觉风格，同时又流淌着传统印刷的人文气韵。
