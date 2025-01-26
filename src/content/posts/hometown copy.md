@@ -1,6 +1,6 @@
 ---
-title: 一次意外的森林徒步
-published: 2025-08-18
+title: 开源的心理建设
+published: 2025-07-18
 tags: ["鲁迅"]
 ---
 

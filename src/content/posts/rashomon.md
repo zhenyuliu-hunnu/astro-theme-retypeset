@@ -1,6 +1,6 @@
 ---
 title: 罗生门
-published: 1984-09-17
+published: 2024-09-17
 tags: ["黑泽明"]
 ---
 

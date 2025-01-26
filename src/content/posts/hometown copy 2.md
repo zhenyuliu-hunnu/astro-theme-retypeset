@@ -1,6 +1,6 @@
 ---
-title: 一次意外的森林徒步
-published: 2025-08-18
+title: 漫记京都街巷富士山下与 Collector
+published: 2025-01-18
 tags: ["鲁迅"]
 ---
 
