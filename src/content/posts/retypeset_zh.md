@@ -1,5 +1,5 @@
 ---
-title: Retypeset 主题介绍
+title: 主题介绍
 published: 2024-01-25
 tags: ["Astro", "博客主题"]
 ---
