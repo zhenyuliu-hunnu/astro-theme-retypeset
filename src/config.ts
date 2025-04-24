@@ -4,15 +4,15 @@ export const themeConfig: ThemeConfig = {
   // SITE INFORMATION >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   site: {
     // site title
-    title: 'Retypeset',
+    title: '学点毛线',
     // site subtitle
-    subtitle: 'Revive the beauty of typography',
+    subtitle: '学术和技术，以及一些有的没的。',
     // site description
-    description: 'Retypeset is a static blog theme based on the Astro framework. Inspired by Typography, Retypeset establishes a new visual standard and reimagines the layout of all pages, creating a reading experience reminiscent of paper books, reviving the beauty of typography. Details in every sight, elegance in every space.',
+    description: '什么都学，但什么都只学一点点。',
     // use i18n title/subtitle/description from src/i18n/ui.ts instead of static ones above
-    i18nTitle: true, // true, false
+    i18nTitle: false, // true, false
     // author name
-    author: 'radishzz',
+    author: 'zhenyuliu',
     // site url
     url: 'https://retypeset.radishzz.cc',
     // favicon url
@@ -56,7 +56,7 @@ export const themeConfig: ThemeConfig = {
     locale: 'zh', // zh, zh-tw, ja, en, es, ru
     // more languages
     // not fill in the locale code above again
-    moreLocales: ['zh-tw', 'ja', 'en', 'es', 'ru'], // ['zh', 'zh-tw', 'ja', 'en', 'es', 'ru']
+    moreLocales: ['zh-tw', 'en'], // ['zh', 'zh-tw', 'ja', 'en', 'es', 'ru']
     // font styles for post text
     fontStyle: 'sans', // sans, serif
     // date format for posts
@@ -71,7 +71,7 @@ export const themeConfig: ThemeConfig = {
   // COMMENT SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   comment: {
     // enable comment system
-    enabled: true, // true, false
+    enabled: false, // true, false
     // waline comment system
     // https://waline.js.org/en/
     waline: {
@@ -95,28 +95,28 @@ export const themeConfig: ThemeConfig = {
   // SEO SETTINGS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> START
   seo: {
     // @twitter ID
-    twitterID: '@radishzz_',
+    //twitterID: '@radishzz_',
     // site verification
-    verification: {
+    //verification: {
       // google search console
       // https://search.google.com/search-console
-      google: 'AUCrz5F1e5qbnmKKDXl2Sf8u6y0kOpEO1wLs6HMMmlM',
+     // google: 'AUCrz5F1e5qbnmKKDXl2Sf8u6y0kOpEO1wLs6HMMmlM',
       // bing webmaster tools
       // https://www.bing.com/webmasters
-      bing: '64708CD514011A7965C84DDE1D169F87',
+      //bing: '64708CD514011A7965C84DDE1D169F87',
       // yandex webmaster
       // https://webmaster.yandex.com
-      yandex: '',
+      //yandex: '',
       // baidu search
       // https://ziyuan.baidu.com
-      baidu: '',
-    },
+     // baidu: '',
+   // },
     // google analytics
     // https://analytics.google.com
-    googleAnalyticsID: '',
+    //googleAnalyticsID: '',
     // umami analytics
     // https://cloud.umami.is
-    umamiAnalyticsID: '520af332-bfb7-4e7c-9386-5f273ee3d697',
+    //umamiAnalyticsID: '520af332-bfb7-4e7c-9386-5f273ee3d697',
     // follow verification
     // https://follow.is/
     follow: {
@@ -142,16 +142,16 @@ export const themeConfig: ThemeConfig = {
       },
       {
         name: 'GitHub',
-        url: 'https://github.com/radishzzz/astro-theme-retypeset',
+        url: 'https://github.com/zhenyuliu-hunnu',
       },
-      {
-        name: 'Twitter',
-        url: 'https://x.com/radishzz_',
-      },
-      // {
-      //   name: 'Email',
-      //   url: 'https://example@gmail.com',
-      // }
+      //{
+       // name: 'Twitter',
+      //  url: 'https://x.com/radishzz_',
+      //},
+       {
+         name: 'Email',
+         url: 'https://zhenyuliu@hunnu.edu.cn',
+       }
     ],
     // year of website start
     startYear: 2024,
@@ -164,9 +164,9 @@ export const themeConfig: ThemeConfig = {
     // docs: https://docs.astro.build/en/guides/prefetch/#prefetch-strategies
     linkPrefetch: 'viewport', // hover, tap, viewport, load
     // comment server url
-    commentURL: 'https://retypeset-comment.radishzz.cc',
+    // commentURL: 'https://retypeset-comment.radishzz.cc',
     // image hosting url
-    imageHostURL: 'https://image.radishzz.cc',
+    imageHostURL: 'https://file.driftingindepth.com',
     // custom google analytics js
     // for users who route analytics javascript to a customized domain
     // See https://gist.github.com/xiaopc/0602f06ca465d76bd9efd3dda9393738
