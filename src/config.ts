@@ -14,7 +14,7 @@ export const themeConfig: ThemeConfig = {
     // author name
     author: 'zhenyuliu',
     // site url
-    url: 'https://retypeset.radishzz.cc',
+    url: 'https://techtapestry.pages.dev/',
     // favicon url
     // recommended formats: svg, png or ico
     favicon: '/icon/favicon.svg', // or https://example.com/favicon.svg
